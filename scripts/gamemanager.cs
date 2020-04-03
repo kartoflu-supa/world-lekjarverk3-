@@ -1,41 +1,52 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class gamemanager : MonoBehaviour
 {
-    public GameObject player;
-    public Material[] skyboxes;
-    float timestart = 120f;
-    float time;
-    int sky = 8;
+    public GameObject player;//leikmaðurinn
+    public Material[] skyboxes;//listi af himnum
+    readonly float timestart = 120f;//tíminn milli himan breytingar
+    float time;//núverandi tími milli breytingar
+    int sky = 8;//himininn sem núna er í gangi
+    public Vector3 spun;//staðsetninginn sem player fer á eftir dauða
+    public Vector3 end;//staðsetning hjá enda heimsins
 
     private void Start()
     {
-        RenderSettings.skybox = skyboxes[8];
-        time = timestart;
+        RenderSettings.skybox = skyboxes[8];//breytir himninum í himmin númmer 8
+        time = timestart;//byrjar klukkuna
     }
-    private void Update()
+
+    public int Ded()//fall sem endurlífgar leikmanninn
     {
-        
+        player.SetActive(false);
+        player.transform.position = spun;
+        int helth = 10;
+        player.SetActive(true);
+        return helth;
     }
+
+    public void Boundry()//fall sem sendir leikmann til enda heimsins
+    {
+        player.SetActive(false);
+        player.transform.position = end;
+        player.SetActive(true);
+    }
+
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (time > 0)
+        if (time > 0)//ef tímminn er meira enn núll
         {
-            time -= 1;
+            time -= 1;//lækka þá tímann
         }
-        else
+        if (time <= 0)
         {
             sky += 1;
-            if (sky == 0)
-            {
-                RenderSettings.skybox = skyboxes[0];
-                time = timestart;
-            }
-            else if (sky == 1)
+            if (sky == 1)
             {
                 RenderSettings.skybox = skyboxes[1];
                 time = timestart;
@@ -110,10 +121,11 @@ public class gamemanager : MonoBehaviour
                 RenderSettings.skybox = skyboxes[15];
                 time = timestart * 12;
             }
-            else
+            else// annars byrja upp á nýtt
             {
                 sky = 0;
                 RenderSettings.skybox = skyboxes[0];
+                time = timestart;
             }
         }
     }

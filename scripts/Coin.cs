@@ -4,20 +4,22 @@ using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
-    public int coinValue = 1;
-    public float rotatSpeed;
-    
-
-    private void OnTriggerEnter(Collider other)
+    GameObject self;
+    private void Start()
     {
-        if (other.gameObject.CompareTag("Player"))
+        self = gameObject;
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.layer == 8)  //eyðir hlutinn sem scriptan tilheyrir ef leikmaður snertir það
         {
-            Destroy(this.gameObject);
+            GameObject.Destroy(self);
         }
     }
+    public float rotatSpeed;
     private void Update()
     {
-        transform.Rotate(rotatSpeed*Time.deltaTime, 0, 0);
+        transform.Rotate(rotatSpeed*Time.deltaTime, 0, 0); // snýr hlutinn sem scriptann tilheyrir
     }
 }
  

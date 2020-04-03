@@ -3,25 +3,18 @@ using UnityEngine.AI;
 
 public class Hunt : MonoBehaviour
 {
-    public Transform goal;
-    /*
-    private void OnCollisionEnter(Collision other)
-    {
-        if (other.gameObject.layer == 8)
-        {
-            FindObjectOfType<gamemanager>().
-        }
-    }
-    */
+    public Transform goal;  //hvert hluturinn vill fara
+    NavMeshAgent agent;  //NavMeshAgent partur
     // Start is called before the first frame update
     void Start()
     {
+        agent = gameObject.GetComponent<NavMeshAgent>();//nær í navmesh component sem er partur af hlutnum sem scriptann er partur af
+        
     }
     
     // Update is called once per frame
     void Update()
     {
-        NavMeshAgent agent = GetComponent<NavMeshAgent>();
-        agent.destination = goal.position;
+        agent.destination = goal.position;//segir agent að fara til staðinn sem hlutrinn vill fara
     }
 }

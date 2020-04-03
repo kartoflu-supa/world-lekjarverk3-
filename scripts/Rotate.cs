@@ -11,4 +11,4 @@ public class Rotate : MonoBehaviour
     {
         transform.Rotate(0, rotatSpeed * Time.deltaTime, 0);
     }
-}
+}//þetta script snýr object eftir hraðan sem ert tekkin fram
